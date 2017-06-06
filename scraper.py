@@ -27,6 +27,8 @@ def getlinks(souppage,url):
     # Get today's date
     todays_date = str(datetime.now())
     # Loop through lines of the html with an 'a' tag
+    datadict={"name": url, "from": "NOAA"}
+    scraperwiki.sqlite.save(unique_keys=['name'],data={"name": url, "from": "NOAA"}, table_name="metadata")
     for item in souppage.find_all('a'):
         # Create the url, and save to the database
         link = url + '/' + item.get('href')
@@ -38,7 +40,7 @@ if __name__ == '__main__':
     page = geturl(url)
     souppage = getsouppage(page)
     getlinks(souppage,url)
-    
+
 # import scraperwiki
 # import lxml.html
 #
